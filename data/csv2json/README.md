@@ -6,6 +6,17 @@ Usage
 
 Run the script with torch7.
 
+Example:
+
+    $ th csv2json/init.lua input.csv output/ --map ./mapping.lua
+
+...will take the rows of `input.csv` and save each as its own JSON file in `output/`,
+using the function returned from `mapping.lua` to map the row to the desired
+output format.
+
+By default, there is no mapping function; the CSV column headers will be used
+as the JSON keys in the output.
+
 ### Mapping
 
 The script offers a `--map` option that allows the user to apply a custom mapping
