@@ -1,12 +1,19 @@
 CSV 2 JSON
 ==========
 
+A script to efficiently convert large CSV files to JSON.
+
+Run `csv2json/init.lua` without arguments for detailed usage.
+
 Usage
 -----
 
-Run the script with torch7.
+Recommended to run the script with torch7. Dependencies should be autmatically
+injected into the global namespace.
 
-Example:
+Pure lua users should ensure they have the cjson package.
+
+### Example Command
 
     $ th csv2json/init.lua input.csv output/ --map ./mapping.lua
 
@@ -22,13 +29,16 @@ as the JSON keys in the output.
 The script offers a `--map` option that allows the user to apply a custom mapping
 function to the CSV rows. The `--map` option expects a path to a lua file that reutrns
 a single function. The function has two parameters: the CSV row, as a lua table, and
-the row index. The function should return a lua table representing the output for that CSV row
+the row index. The function should return a lua table representing the output for
+that CSV row
 
-For example, calling the script with mapping function:
+#### Example Mapper
 
-    $ th csv2json input.csv output/ --map ~/code/map.lua
+For example, if the script si called with a mapping function:
 
-`~/code/map.lua`:
+    $ th csv2json input.csv output/ --map mapping.lua
+
+`mapping.lua`:
 
     return function(data, index)
       local out = tablex.union(data, {
