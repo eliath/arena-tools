@@ -1,12 +1,15 @@
 local json = require 'cjson'
 
 local opt = lapp[[
-Convert a CSV file to a series of JSON documents, where each CSV row becomes a
-JSON object. Output paths ending in / means each row will be output as a separate
-file. Otherwise output as an array of objects. The script buffers input/output and
-thus should be safe on large files.
+Convert a CSV file to JSON.
+Each CSV row becomes a JSON object in the output.
+Output paths ending in / means each row will be output as a separate file.
+Otherwise output as an array of objects.
+The script buffers input/output and thus should be safe on large files.
+
    <input>  (string)           The input CSV file
-   <output> (optional string)  Path to JSON output, stdout by default. Trailing slash means directory
+   <output> (optional string)  Path to JSON output, stdout by default.
+                               Trailing slash means directory
    --map    (optional string)  Path to lua file with mapping function (see README)
    --no-header                 No CSV column headers; treat rows as unlabeled array
 ]]
