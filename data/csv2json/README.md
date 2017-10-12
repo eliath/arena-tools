@@ -38,3 +38,12 @@ If the file has a header row, `data` will have the headers as string keys and th
 values as the CSV column values as strings.
 
 If the file does not have a header row, `data` will be a "list" of string values.
+
+#### `__filename` feild
+
+The mapping function can also determine the filename in which  to save the mapped data
+(dir mode only). Set the `__filename` feild on the table returned from the mapping
+function, and the script will save the data in a file in your specified output directory
+under that name, e.g. `<output_dir>/<__filename>.json`.
+The `__filename` feild is deleted before writing the data so it won't muddle
+the results.
