@@ -1,7 +1,7 @@
 CSV 2 JSON
 ==========
 
-A script to efficiently convert large CSV files to JSON.
+A lua script to efficiently convert large CSV files to JSON.
 
 Run `th init.lua --help` without arguments for detailed usage.
 
