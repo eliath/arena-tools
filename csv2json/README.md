@@ -3,7 +3,7 @@ CSV 2 JSON
 
 A script to efficiently convert large CSV files to JSON.
 
-Run `csv2json/init.lua` without arguments for detailed usage.
+Run `th init.lua --help` without arguments for detailed usage.
 
 Usage
 -----
