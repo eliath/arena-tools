@@ -8,12 +8,14 @@ Run `csv2json/init.lua` without arguments for detailed usage.
 Usage
 -----
 
+quite simply: `csv2json/init.lua <inputCSV> <output>`
+
 Recommended to run the script with torch7. Dependencies should be autmatically
 injected into the global namespace.
 
 Pure lua users should ensure they have the cjson package.
 
-### Example Command
+### Example - using Map option
 
     $ th csv2json/init.lua input.csv output/ --map ./mapping.lua
 
