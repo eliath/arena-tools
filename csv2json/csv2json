@@ -1,3 +1,4 @@
+#!/usr/bin/env th
 local json = require 'cjson'
 
 local opt = lapp[[
