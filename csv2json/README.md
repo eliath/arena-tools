@@ -1,72 +1,62 @@
 CSV 2 JSON
 ==========
 
-A lua script to efficiently convert large CSV files to JSON.
+A script to efficiently convert large CSV files to JSON.
 
-Run `th init.lua --help` without arguments for detailed usage.
+Run `./csv2json --help` for detailed usage.
 
 Usage
 -----
 
-quite simply: `csv2json/init.lua <inputCSV> <output>`
+### Examples
 
-Recommended to run the script with torch7. Dependencies should be autmatically
-injected into the global namespace.
+--> print the csv file as an array of JSON objects to STDOUT
 
-Pure lua users should ensure they have the cjson package.
+    $ ./csv2json input.csv
 
-### Example - using Map option
+--> output the array of JSON objects to a file named `output.json`
 
-    $ th csv2json/init.lua input.csv output/ --map ./mapping.lua
+    $ ./csv2json input.csv ./path/to/output.json
 
-...will take the rows of `input.csv` and save each as its own JSON file in `output/`,
-using the function returned from `mapping.lua` to map the row to the desired
-output format.
+--> output each CSV row as a JSON file containing a single object
+in the directory `outputFiles/` (triggered by trailing slash)
 
-By default, there is no mapping function; the CSV column headers will be used
-as the JSON keys in the output.
+    $ ./csv2json input.csv ./path/to/outputFiles/
 
-### Mapping
 
-The script offers a `--map` option that allows the user to apply a custom mapping
-function to the CSV rows. The `--map` option expects a path to a lua file that reutrns
-a single function. The function has two parameters: the CSV row, as a lua table, and
-the row index. The function should return a lua table representing the output for
-that CSV row
+#### using `--map` option
 
-#### Example Mapper
+The `--map` option allows the user to specify a custom mapping function
+for the CSV --> JSON data.
 
-For example, if the script si called with a mapping function:
+    $ ./csv2json input.csv --map ./mapFunc.lua
 
-    $ th csv2json input.csv output/ --map mapping.lua
+The function returned from `mapFunc.lua` should take two arguments
 
-`mapping.lua`:
+```
+-- mapFunc.lua --
 
-    return function(data, index)
-      local out = tablex.union(data, {
-        fullname = data.firstname .. ' ' .. data.lastname,
-        id = index
-      })
-      return out
-    end
+return function(data, idx)
+  -- data is the CSV row as a lua table
+  -- idx is the CSV row index
 
-The above would take a CSV row, retain all its data as-is, and insert (or overwrite)
-the `fullname` and `id` fields.
+  -- function should return a lua table
+  -- the returned object will be encoded
+  -- and output as JSON
+end
+```
 
-- `data` is the CSV row as a lua table
+##### Important:
+
+If your output parameter is a directory, you can control the filenames
+of the output JSON by setting the `__filename` field on the lua table
+returned from your mapping function.
+
+If `__filename` (or the mapFunc altogether) is not given, the files
+will have names like `0.json`, `1.json`, etc... according to their
+row index in the CSV file.
+
+### Gotchas
+
 - By default, script expects column headers in the first row
 - Row `0` for CSVs with column headers will be the first row of actual data, not the header row
-
-If the file has a header row, `data` will have the headers as string keys and the
-values as the CSV column values as strings.
-
-If the file does not have a header row, `data` will be a "list" of string values.
-
-#### `__filename` feild
-
-The mapping function can also determine the filename in which  to save the mapped data
-(dir mode only). Set the `__filename` feild on the table returned from the mapping
-function, and the script will save the data in a file in your specified output directory
-under that name, e.g. `<output_dir>/<__filename>.json`.
-The `__filename` feild is deleted before writing the data so it won't muddle
-the results.
