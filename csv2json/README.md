@@ -3,7 +3,7 @@ CSV 2 JSON
 
 A script to efficiently convert large CSV files to JSON.
 
-Run `./csv2json --help` for detailed usage.
+Run `./csv2json.lua --help` for detailed usage.
 
 Usage
 -----
@@ -12,16 +12,16 @@ Usage
 
 --> print the csv file as an array of JSON objects to STDOUT
 
-    $ ./csv2json input.csv
+    $ ./csv2json.lua input.csv
 
 --> output the array of JSON objects to a file named `output.json`
 
-    $ ./csv2json input.csv ./path/to/output.json
+    $ ./csv2json.lua input.csv ./path/to/output.json
 
 --> output each CSV row as a JSON file containing a single object
 in the directory `outputFiles/` (triggered by trailing slash)
 
-    $ ./csv2json input.csv ./path/to/outputFiles/
+    $ ./csv2json.lua input.csv ./path/to/outputFiles/
 
 
 #### using `--map` option
@@ -29,7 +29,7 @@ in the directory `outputFiles/` (triggered by trailing slash)
 The `--map` option allows the user to specify a custom mapping function
 for the CSV --> JSON data.
 
-    $ ./csv2json input.csv --map ./mapFunc.lua
+    $ ./csv2json.lua input.csv --map ./mapFunc.lua
 
 The function returned from `mapFunc.lua` should take two arguments
 

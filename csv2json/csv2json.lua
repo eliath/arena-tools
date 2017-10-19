@@ -26,7 +26,8 @@ local lineIdx = 0
 
 
 if fileOut then
-   opt.output = io.output(opt.output)
+   opt.output = opt.output and
+      io.open(opt.output, 'w') or io.output(opt.output)
    opt.output:write('[\n')
 end
 
@@ -42,11 +43,11 @@ local readChunk = function()
    if not lines then return nil end
    if rest then lines = lines .. rest end
    lines = stringx.strip(lines, '\n')
-   return stringx.split(lines)
+   return stringx.split(lines, '\n')
 end
 
 local splitLine = function(line)
-   return stringx.split(stringx.strip(line), ',')
+   return stringx.split(line, ',')
 end
 
 local decodeLine = function(line, idx)
@@ -71,7 +72,7 @@ local writeData = function(data, idx)
       ofile:write(json.encode(data))
       ofile:close()
    else
-      if lineIdx > 0 then opt.output:write(',\n') end
+      if idx > 0 then opt.output:write(',\n') end
       opt.output:write(json.encode(data))
    end
 end
