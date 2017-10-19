@@ -13,8 +13,6 @@ local idir = path.abspath(path.expanduser(opt.inputDir))
 assert(path.exists(idir), 'Input path does not exist')
 assert(path.isdir(idir), 'Input path is not a directory')
 
-print(idir)
-
 local fontsToInstall = dir.getallfiles(idir, '*ttf')
 for _,x in ipairs(dir.getallfiles(idir, '*otf')) do
    table.insert(fontsToInstall, x)
@@ -26,7 +24,7 @@ for _,fontFile in ipairs(fontsToInstall) do
    if path.exists(fontTarget) and opt['ignote-duplicates'] then
       printStatus(false)
    else
-      os.execute('mv -f "' .. fontFile .. '" "' .. fontTarget .. '"')
+      os.execute('cp "' .. fontFile .. '" "' .. fontTarget .. '"')
       printStatus(true)
    end
 end
