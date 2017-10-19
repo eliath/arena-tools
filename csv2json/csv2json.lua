@@ -22,7 +22,6 @@ local dirOut = opt.output and
 local fileOut = not dirOut
 local mapFunc = opt.map and require(opt.map) or (function(d) return d end)
 local headers -- used to hold the column headers
-local firstLine = true
 local lineIdx = 0
 
 
@@ -63,10 +62,10 @@ local decodeLine = function(line, idx)
    return mapFunc(res, idx)
 end
 
-local writeData = function(data, lineIdx)
+local writeData = function(data, idx)
    if dirOut then
       local opath = path.join(opt.output,
-         (data.__filename or tostring(lineIdx)) .. '.json')
+         (data.__filename or tostring(idx)) .. '.json')
       data.__filename = nil
       local ofile = io.open(opath, 'w')
       ofile:write(json.encode(data))
@@ -81,7 +80,7 @@ while true do
    local lines = readChunk()
    if not lines then break end
 
-   for i,line in ipairs(lines) do
+   for _,line in ipairs(lines) do
       if lineIdx == 0 and not opt['no-header'] and not headers then
          -- Grab the headers from the first line instead of writing
          headers = splitLine(line)
