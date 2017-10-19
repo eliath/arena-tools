@@ -29,4 +29,4 @@ for _,fontFile in ipairs(fontsToInstall) do
    end
 end
 
-print('done')
+print('\ndone')
