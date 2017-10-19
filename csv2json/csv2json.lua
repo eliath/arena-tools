@@ -47,7 +47,7 @@ local readChunk = function()
 end
 
 local splitLine = function(line)
-   return stringx.split(line, ',')
+   return stringx.split(stringx.strip(line), ',')
 end
 
 local decodeLine = function(line, idx)
