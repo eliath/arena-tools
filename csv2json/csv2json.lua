@@ -57,13 +57,16 @@ local decodeLine = function(line, idx)
       res = {}
       for i,val in ipairs(cols) do
          local k = headers[i] or '__UNKNOWN_HEADER__'..i
-         res[k] = val
+         if val ~= '' then
+            res[k] = val
+         end
       end
    end
    return mapFunc(res, idx)
 end
 
 local writeData = function(data, idx)
+   if not data then return end
    if dirOut then
       local opath = path.join(opt.output,
          (data.__filename or tostring(idx)) .. '.json')
@@ -92,7 +95,6 @@ while true do
       end
    end
 end
-
 
 if fileOut then
    opt.output:write('\n]')
