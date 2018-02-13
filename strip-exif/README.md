@@ -8,20 +8,20 @@ after execution finishes.
 
 **USAGE**
 
-`image` and `hashids` packages, available from luarocks.
+You need the `image` and `hashids` packages, available from luarocks.
 
     $ luarocks install image
     $ luarocks install hashids
 
-Change the variable named `START_PATH` to change the start
-of the directory tree to operate on.
+Run with no arguments to see usage.
 
-**IMPORTANT**
+You can test on the exif-samples directory:
 
-You should not alter the `test_images_orig/` directory in any way.
+    $ th strip-exif.lua ./exif-samples/
 
-Instead, copy that folder and rename it, updating the `START_PATH`
-variable in the script to the new folder name.
+Then to reset the directory back to normal:
 
-This will ensure you always have a clean set of images to
-test with, as the script alters the files directly.
+    $ git submodule update
+    $ cd exif-samples/
+    $ git clean -fdx
+
