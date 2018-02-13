@@ -22,6 +22,5 @@ You can test on the exif-samples directory:
 Then to reset the directory back to normal:
 
     $ git submodule update
-    $ cd exif-samples/
-    $ git clean -fdx
+    $ git submodule foreach git clean -fdx
 
