@@ -1,0 +1,3 @@
+[submodule "strip-exif/exif-samples"]
+	path = strip-exif/exif-samples
+	url = https://github.com/ianare/exif-samples
